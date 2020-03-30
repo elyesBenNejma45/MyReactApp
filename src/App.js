@@ -1,7 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import Styled from 'styled-components';
 
+    //this is an inline styles
+
+const Styledbutton = Styled.button`
+  background-color: ${props => props.alt ? 'red':'green'};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+  
+  &:hover{
+    background-color:${props => props.alt ? 'salmon':'lightgreen'};
+    color: black;
+  }
+  `;      
+    
 class App extends Component {
   state = {
     persons: [
@@ -13,7 +30,6 @@ class App extends Component {
     showPerson: false
   }
 
-  
 
   switchNameHandler = (newName) => {
     // console.log('Was clicked!');
@@ -57,14 +73,16 @@ class App extends Component {
   }
 
   render () {
-    const style = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
-    };
-  
+     
+
+    let classes = [];
+    if(this.state.persons.length <=2) {
+      classes.push('red');     
+    }
+    if(this.state.persons.length <=1) {
+      classes.push('bold');
+    }
+
     let pers = null;  
       if (this.state.showPerson) {
         
@@ -92,15 +110,19 @@ class App extends Component {
            })}
       </div> 
      );
-
+          //  style.backgroundColor= "red";
+          //  style[':hover'] = {
+          //   backgroundColor:'salmon',
+          //   color:'black',
+          // }
       }
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
-        <p>This is really working!</p>
-        <button 
-          style={style}
-          onClick={this.togglePersonHandler }>Toggle Persons</button>
+        <p className = {classes.join(' ')}>This is really working!</p>
+        <Styledbutton alt ={this.state.showPerson} onClick={this.togglePersonHandler}>
+          Toggle Persons
+        </Styledbutton>
       {pers}  
       </div>
     );
@@ -118,4 +140,8 @@ class App extends Component {
      //  state a reserved word and we should use it if we want to manage welle some component
       //div are created by React component it is not an html
       // props can handle functions
+      //mousehover when the cursor is onto the element or its children
+      // it is a package to wrapp components used in css for exemple to wrapp the pseudoclasses
+      // styleroot is a special component to handle the media querries
+      //Media Queries. Media queries are a feature of CSS that enable webpage content to adapt to different screen sizes and resolutions. 
 export default App;

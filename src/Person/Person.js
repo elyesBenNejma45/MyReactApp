@@ -1,12 +1,28 @@
 import React from 'react';
-import"./Person.css"
+import Styled from 'styled-components';
+
+const StyledComponent = Styled.div`
+width: 60%;
+margin: 16px auto;
+border: 1px solid #eee;
+box-shadow: 0 2px 3px #ccc;
+padding:16px;
+text-align: center;
+
+@media (min-width:450px):{
+  width:500px
+}
+`;
+
+
 const person = (props) => {
     return (
-        <div className= "Person"> 
+        //<div className= "Person" style={style}> 
+        <StyledComponent> 
                 <p onClick = {props.click}> I'm {props.name} and I'm {props.age} old </p>
                 <p> {props.children}</p>
                 <input type="text" onChange={props.changed} value={props.name} />
-        </div>
+        </StyledComponent>
     );
 }
 // it is a stateless components because it does not contain a state management
