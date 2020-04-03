@@ -1,24 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person';
-import Styled from 'styled-components';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
+
 
     //this is an inline styles
-
-const Styledbutton = Styled.button`
-  background-color: ${props => props.alt ? 'red':'green'};
-  color: white;
-  font: inherit;
-  border: 1px solid blue;
-  padding: 8px;
-  cursor: pointer;
-  
-  &:hover{
-    background-color:${props => props.alt ? 'salmon':'lightgreen'};
-    color: black;
-  }
-  `;      
-    
 class App extends Component {
   state = {
     persons: [
@@ -26,6 +12,7 @@ class App extends Component {
       { id: '2', name: 'Manu', age: 29 },
       { id: '3', name: 'Stephanie', age: 26 }
     ],
+    
     otherState: 'some other value',
     showPerson: false
   }
@@ -73,41 +60,20 @@ class App extends Component {
   }
 
   render () {
-     
-
-    let classes = [];
-    if(this.state.persons.length <=2) {
-      classes.push('red');     
-    }
-    if(this.state.persons.length <=1) {
-      classes.push('bold');
-    }
 
     let pers = null;  
       if (this.state.showPerson) {
         
         pers = (
       <div>
-          {/* <Person 
-           name={this.state.persons[0].name} 
-           age={this.state.persons[0].age} />
-        <Person 
-           name={this.state.persons[1].name} 
-           age={this.state.persons[1].age}
-           click={this.switchNameHandler.bind(this, 'Max!')}
-           changed={this.nameChangedHandler}>My Hobbies: Racing</Person>
-        <Person 
-           name={this.state.persons[2].name} 
-           age={this.state.persons[2].age} /> */}
-           {this.state.persons.map((person,index) => {
-             return <Person 
-                      click = { () => this.deleteTogglePerson(index)}
-                      name = {person.name}
-                      age  = {person.age}
-                      key = {person.id}
-                      changed = { (event) => this.nameChangedHandler(event,person.id) }
-                    />
-           })}
+          {
+           <Persons
+              persons = {this.state.persons}
+              clicked = {this.deleteTogglePerson}
+              changed = {this.switchNameHandler}
+           />
+           }
+          
       </div> 
      );
           //  style.backgroundColor= "red";
@@ -118,11 +84,11 @@ class App extends Component {
       }
     return (
       <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p className = {classes.join(' ')}>This is really working!</p>
-        <Styledbutton alt ={this.state.showPerson} onClick={this.togglePersonHandler}>
-          Toggle Persons
-        </Styledbutton>
+        <Cockpit
+          persons = {this.state.persons}
+          showPerson = {this.state.showPerson}
+          clicked = {this.togglePersonHandler}
+        />
       {pers}  
       </div>
     );
