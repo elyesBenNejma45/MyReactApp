@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
@@ -12,7 +12,7 @@ class App extends Component {
       { id: '2', name: 'Manu', age: 29 },
       { id: '3', name: 'Stephanie', age: 26 }
     ],
-    
+
     otherState: 'some other value',
     showPerson: false
   }
@@ -70,7 +70,7 @@ class App extends Component {
            <Persons
               persons = {this.state.persons}
               clicked = {this.deleteTogglePerson}
-              changed = {this.switchNameHandler}
+              changed = {this.nameChangedHandler}
            />
            }
           
@@ -83,7 +83,7 @@ class App extends Component {
           // }
       }
     return (
-      <div className="App">
+      <div className={classes.App}>
         <Cockpit
           persons = {this.state.persons}
           showPerson = {this.state.showPerson}
